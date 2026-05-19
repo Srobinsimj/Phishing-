@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cybersecurity Awareness Demo</title>
+
+<style>
+    *{
+        margin:0;
+        padding:0;
+        box-sizing:border-box;
+        font-family: Arial, sans-serif;
+    }
+
+    body{
+        background:#f0f2f5;
+        height:100vh;
+        display:flex;
+        justify-content:center;
+        align-items:center;
+    }
+
+    .container{
+        width:350px;
+        background:white;
+        padding:30px;
+        border-radius:12px;
+        box-shadow:0 5px 15px rgba(0,0,0,0.2);
+    }
+
+    .warning{
+        background:#ffe9e9;
+        color:#c62828;
+        padding:10px;
+        border-radius:6px;
+        margin-bottom:15px;
+        font-size:14px;
+        text-align:center;
+        font-weight:bold;
+    }
+
+    h2{
+        text-align:center;
+        margin-bottom:20px;
+        color:#333;
+    }
+
+    .social-engineering{
+        background:#fff3cd;
+        color:#856404;
+        padding:10px;
+        border-radius:6px;
+        margin-bottom:15px;
+        font-size:13px;
+    }
+
+    input{
+        width:100%;
+        padding:12px;
+        margin:10px 0;
+        border:1px solid #ccc;
+        border-radius:6px;
+        font-size:15px;
+    }
+
+    button{
+        width:100%;
+        padding:12px;
+        background:#1877f2;
+        color:white;
+        border:none;
+        border-radius:6px;
+        font-size:16px;
+        cursor:pointer;
+    }
+
+    button:hover{
+        background:#0f5fd1;
+    }
+
+    .footer{
+        margin-top:20px;
+        font-size:12px;
+        color:#666;
+        text-align:center;
+    }
+
+    .tips{
+        margin-top:15px;
+        background:#e8f5e9;
+        padding:10px;
+        border-radius:6px;
+        font-size:13px;
+        color:#2e7d32;
+    }
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="warning">
+        EDUCATIONAL CYBERSECURITY DEMO
+    </div>
+
+    <h2>Account Verification</h2>
+
+    <div class="social-engineering">
+        ⚠ Example of social engineering:
+        “Your account will be suspended within 24 hours unless you verify immediately.”
+    </div>
+
+    <form id="demoForm">
+        <input type="text" placeholder="Email Address" required>
+        <input type="password" placeholder="Password" required>
+
+        <button type="submit">Verify Account</button>
+    </form>
+
+    <div class="tips">
+        <strong>How to detect phishing:</strong>
+        <ul style="margin-top:8px; padding-left:18px;">
+            <li>Check suspicious URLs</li>
+            <li>Watch for urgency tactics</li>
+            <li>Verify sender identity</li>
+            <li>Never enter passwords on unknown pages</li>
+        </ul>
+    </div>
+
+    <div class="footer">
+        This page does NOT collect or transmit credentials.<br>
+        Built for cybersecurity awareness training.
+    </div>
+
+</div>
+
+<script>
+document.getElementById("demoForm").addEventListener("submit", function(event){
+    event.preventDefault();
+
+    alert(
+        "This was a cybersecurity awareness simulation.\\n\\n" +
+        "Real phishing pages attempt to steal credentials using fear, urgency, and fake login forms."
+    );
+});
+</script>
+
+</body>
+</html>
