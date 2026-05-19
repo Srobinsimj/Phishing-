@@ -19,10 +19,11 @@
         display:flex;
         justify-content:center;
         align-items:center;
+        padding:20px;
     }
 
     .container{
-        width:350px;
+        width:360px;
         background:white;
         padding:30px;
         border-radius:12px;
@@ -53,6 +54,17 @@
         border-radius:6px;
         margin-bottom:15px;
         font-size:13px;
+        line-height:1.5;
+    }
+
+    .demo-credentials{
+        background:#e3f2fd;
+        color:#0d47a1;
+        padding:10px;
+        border-radius:6px;
+        margin-bottom:15px;
+        font-size:13px;
+        line-height:1.6;
     }
 
     input{
@@ -73,17 +85,11 @@
         border-radius:6px;
         font-size:16px;
         cursor:pointer;
+        transition:0.3s;
     }
 
     button:hover{
         background:#0f5fd1;
-    }
-
-    .footer{
-        margin-top:20px;
-        font-size:12px;
-        color:#666;
-        text-align:center;
     }
 
     .tips{
@@ -93,6 +99,19 @@
         border-radius:6px;
         font-size:13px;
         color:#2e7d32;
+    }
+
+    .tips ul{
+        margin-top:8px;
+        padding-left:18px;
+    }
+
+    .footer{
+        margin-top:20px;
+        font-size:12px;
+        color:#666;
+        text-align:center;
+        line-height:1.5;
     }
 </style>
 </head>
@@ -108,43 +127,89 @@
     <h2>Account Verification</h2>
 
     <div class="social-engineering">
-        ⚠ Example of social engineering:
+        ⚠ Example of social engineering message:<br><br>
         “Your account will be suspended within 24 hours unless you verify immediately.”
     </div>
 
-    <form id="demoForm">
-        <input type="text" placeholder="Email Address" required>
-        <input type="password" placeholder="Password" required>
+    <div class="demo-credentials">
+        <strong>Demo Login Credentials</strong><br><br>
 
-        <button type="submit">Verify Account</button>
+        Email: demo@student.edu<br>
+        Password: Test1234
+    </div>
+
+    <form id="demoForm">
+
+        <input 
+            type="text" 
+            id="email"
+            placeholder="Email Address" 
+            required
+        >
+
+        <input 
+            type="password" 
+            id="password"
+            placeholder="Password" 
+            required
+        >
+
+        <button type="submit">
+            Verify Account
+        </button>
+
     </form>
 
     <div class="tips">
+
         <strong>How to detect phishing:</strong>
-        <ul style="margin-top:8px; padding-left:18px;">
+
+        <ul>
             <li>Check suspicious URLs</li>
             <li>Watch for urgency tactics</li>
             <li>Verify sender identity</li>
             <li>Never enter passwords on unknown pages</li>
         </ul>
+
     </div>
 
     <div class="footer">
         This page does NOT collect or transmit credentials.<br>
-        Built for cybersecurity awareness training.
+        Built strictly for cybersecurity awareness training and education.
     </div>
 
 </div>
 
 <script>
+
 document.getElementById("demoForm").addEventListener("submit", function(event){
+
     event.preventDefault();
 
-    alert(
-        "This was a cybersecurity awareness simulation.\\n\\n" +
-        "Real phishing pages attempt to steal credentials using fear, urgency, and fake login forms."
-    );
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
+
+    if(email === "demo@student.edu" && password === "Test1234"){
+
+        alert(
+            "Demo login successful.\n\n" +
+            "This is a cybersecurity awareness simulation.\n\n" +
+            "Real phishing websites attempt to steal user credentials using fake login pages and psychological pressure."
+        );
+
+    } else {
+
+        alert(
+            "Incorrect demo credentials.\n\n" +
+            "Use:\n" +
+            "Email: demo@student.edu\n" +
+            "Password: Test1234"
+        );
+
+    }
+
 });
+
 </script>
 
 </body>
