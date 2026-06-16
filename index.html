@@ -1,216 +1,470 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Cybersecurity Awareness Demo</title>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>eLearning Portal — Log In</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-<style>
-    *{
-        margin:0;
-        padding:0;
-        box-sizing:border-box;
-        font-family: Arial, sans-serif;
+    body {
+      font-family: 'Inter', sans-serif;
+      height: 100vh;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
     }
 
-    body{
-        background:#f0f2f5;
-        height:100vh;
-        display:flex;
-        justify-content:center;
-        align-items:center;
-        padding:20px;
+    /* ── EDU BANNER ── */
+    #edu-banner {
+      background: #1a1a2e;
+      color: #fff;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-align: center;
+      padding: 7px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      z-index: 200;
+      flex-shrink: 0;
+    }
+    #edu-banner span { opacity: 0.6; font-weight: 400; }
+    #flag-btn {
+      background: #4f46e5;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      padding: 3px 10px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      cursor: pointer;
     }
 
-    .container{
-        width:360px;
-        background:white;
-        padding:30px;
-        border-radius:12px;
-        box-shadow:0 5px 15px rgba(0,0,0,0.2);
+    /* ── MAIN SPLIT ── */
+    .page {
+      flex: 1;
+      display: grid;
+      grid-template-columns: 1fr 420px;
+      position: relative;
+      overflow: hidden;
     }
 
-    .warning{
-        background:#ffe9e9;
-        color:#c62828;
-        padding:10px;
-        border-radius:6px;
-        margin-bottom:15px;
-        font-size:14px;
-        text-align:center;
-        font-weight:bold;
+    /* ── LEFT — HERO ── */
+    .hero {
+      position: relative;
+      background: #2d1b69;
+      overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(135deg, rgba(79,46,220,0.85) 0%, rgba(109,40,217,0.75) 50%, rgba(45,27,105,0.9) 100%);
+      z-index: 1;
+    }
+    /* Simulated photo using CSS */
+    .hero-photo {
+      position: absolute;
+      inset: 0;
+      background: url('https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=800&q=80') center/cover no-repeat;
+      z-index: 0;
+      filter: grayscale(20%);
+    }
+    /* Purple circle overlay like the design */
+    .hero-circle {
+      position: absolute;
+      width: 110%;
+      height: 110%;
+      top: -5%;
+      left: -30%;
+      background: radial-gradient(ellipse at center, rgba(109,40,217,0.92) 40%, transparent 70%);
+      z-index: 2;
+      border-radius: 50%;
+    }
+    .hero-content {
+      position: relative;
+      z-index: 3;
+      padding: 40px 48px;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .hero-brand {
+      font-size: 0.85rem;
+      font-style: italic;
+      font-weight: 600;
+      color: rgba(255,255,255,0.9);
+      margin-bottom: auto;
+      padding-top: 10px;
+    }
+    .hero-title {
+      font-size: 2.6rem;
+      font-weight: 400;
+      color: #fff;
+      line-height: 1.2;
+      margin-bottom: 80px;
+    }
+    .hero-title strong { font-weight: 800; }
+
+    /* ── RIGHT — LOGIN PANEL ── */
+    .login-panel {
+      background: #f0f2f8;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 32px;
+      position: relative;
     }
 
-    h2{
-        text-align:center;
-        margin-bottom:20px;
-        color:#333;
+    .card {
+      background: #fff;
+      border-radius: 18px;
+      padding: 40px 36px;
+      width: 100%;
+      max-width: 380px;
+      box-shadow: 0 8px 40px rgba(0,0,0,0.10);
+      position: relative;
     }
 
-    .social-engineering{
-        background:#fff3cd;
-        color:#856404;
-        padding:10px;
-        border-radius:6px;
-        margin-bottom:15px;
-        font-size:13px;
-        line-height:1.5;
+    /* Fake URL bar */
+    .url-bar {
+      background: #f3f4f6;
+      border: 1px solid #e5e7eb;
+      border-radius: 20px;
+      padding: 6px 14px;
+      font-size: 0.73rem;
+      color: #374151;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 24px;
+      position: relative;
+    }
+    .url-bar .lock { color: #9ca3af; }
+    .url-bar .u-domain { font-weight: 700; color: #111; }
+    .url-bar .u-path { color: #6b7280; }
+
+    /* URL flag dropdown */
+    .url-flag {
+      display: none;
+      position: absolute;
+      top: calc(100% + 6px);
+      left: 0; right: 0;
+      background: #fef3c7;
+      border: 1.5px solid #f59e0b;
+      border-radius: 8px;
+      padding: 10px 14px;
+      font-size: 0.76rem;
+      color: #92400e;
+      font-weight: 500;
+      z-index: 30;
+      line-height: 1.6;
+    }
+    .url-flag ul { margin-left: 14px; }
+
+    .card h2 {
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: #111827;
+      margin-bottom: 24px;
+      text-align: center;
     }
 
-    .demo-credentials{
-        background:#e3f2fd;
-        color:#0d47a1;
-        padding:10px;
-        border-radius:6px;
-        margin-bottom:15px;
-        font-size:13px;
-        line-height:1.6;
+    .input-wrap {
+      display: flex;
+      align-items: center;
+      border: 1.5px solid #e5e7eb;
+      border-radius: 10px;
+      padding: 12px 14px;
+      margin-bottom: 14px;
+      background: #f9fafb;
+      gap: 10px;
+      transition: border-color 0.2s;
+    }
+    .input-wrap:focus-within { border-color: #4f46e5; background: #fff; }
+    .input-wrap .ico { font-size: 1rem; color: #9ca3af; flex-shrink: 0; }
+    .input-wrap input {
+      border: none;
+      background: transparent;
+      outline: none;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.88rem;
+      color: #111827;
+      width: 100%;
+    }
+    .input-wrap input::placeholder { color: #9ca3af; }
+
+    .row-links {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 18px;
+    }
+    .row-links a {
+      font-size: 0.78rem;
+      color: #6b7280;
+      text-decoration: none;
+    }
+    .row-links a:hover { color: #4f46e5; }
+
+    .btn-signin {
+      background: #2563eb;
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      padding: 13px 28px;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s;
+      white-space: nowrap;
+    }
+    .btn-signin:hover { background: #1d4ed8; }
+
+    .social-row {
+      margin-top: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.82rem;
+      color: #374151;
+      font-weight: 500;
+    }
+    .social-row a {
+      color: #2563eb;
+      text-decoration: none;
+      font-weight: 600;
+    }
+    .social-row a:hover { text-decoration: underline; }
+    .social-row .sep { color: #d1d5db; }
+
+    /* ── ANNOTATIONS ── */
+    #annotations {
+      display: none;
+      background: #fffbeb;
+      border: 1.5px solid #f59e0b;
+      border-radius: 10px;
+      padding: 16px 18px;
+      margin-top: 18px;
+      font-size: 0.78rem;
+      color: #78350f;
+      line-height: 1.7;
+    }
+    #annotations h3 {
+      font-weight: 700;
+      color: #92400e;
+      margin-bottom: 8px;
+      font-size: 0.8rem;
+    }
+    #annotations ol { margin-left: 16px; }
+    #annotations li strong { color: #b45309; }
+
+    /* ── CAPTURED SCREEN ── */
+    #captured {
+      display: none;
+      text-align: center;
+    }
+    #captured .trap { font-size: 2.8rem; margin-bottom: 10px; }
+    #captured h2 { font-size: 1.2rem; color: #dc2626; margin-bottom: 8px; }
+    #captured p { font-size: 0.8rem; color: #6b7280; margin-bottom: 18px; line-height: 1.6; }
+    .cred-box {
+      background: #fef2f2;
+      border: 1px solid #fca5a5;
+      border-radius: 8px;
+      padding: 12px 16px;
+      text-align: left;
+      margin-bottom: 12px;
+      font-size: 0.82rem;
+    }
+    .cred-box .lbl { font-weight: 700; color: #dc2626; font-size: 0.72rem; letter-spacing: 0.05em; text-transform: uppercase; }
+    .cred-box .val { color: #111827; margin-top: 2px; word-break: break-all; }
+    .btn-reset {
+      background: #dc2626;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      padding: 9px 22px;
+      font-family: 'Inter', sans-serif;
+      font-weight: 600;
+      font-size: 0.82rem;
+      cursor: pointer;
+      margin-top: 6px;
     }
 
-    input{
-        width:100%;
-        padding:12px;
-        margin:10px 0;
-        border:1px solid #ccc;
-        border-radius:6px;
-        font-size:15px;
+    /* flag highlight */
+    .flagged { border-color: #f59e0b !important; background: #fffbeb !important; }
+
+    footer {
+      text-align: center;
+      font-size: 0.7rem;
+      color: #9ca3af;
+      padding: 10px;
+      background: #f0f2f8;
+      flex-shrink: 0;
     }
 
-    button{
-        width:100%;
-        padding:12px;
-        background:#1877f2;
-        color:white;
-        border:none;
-        border-radius:6px;
-        font-size:16px;
-        cursor:pointer;
-        transition:0.3s;
+    @media (max-width: 700px) {
+      .page { grid-template-columns: 1fr; }
+      .hero { display: none; }
+      .login-panel { padding: 20px 16px; }
     }
-
-    button:hover{
-        background:#0f5fd1;
-    }
-
-    .tips{
-        margin-top:15px;
-        background:#e8f5e9;
-        padding:10px;
-        border-radius:6px;
-        font-size:13px;
-        color:#2e7d32;
-    }
-
-    .tips ul{
-        margin-top:8px;
-        padding-left:18px;
-    }
-
-    .footer{
-        margin-top:20px;
-        font-size:12px;
-        color:#666;
-        text-align:center;
-        line-height:1.5;
-    }
-</style>
+  </style>
 </head>
-
 <body>
 
-<div class="container">
-
-    <div class="warning">
-        EDUCATIONAL CYBERSECURITY DEMO
-    </div>
-
-    <h2>Account Verification</h2>
-
-    <div class="social-engineering">
-        ⚠ Example of social engineering message:<br><br>
-        “Your account will be suspended within 24 hours unless you verify immediately.”
-    </div>
-
-    <div class="demo-credentials">
-        <strong>Demo Login Credentials</strong><br><br>
-
-        Email: demo@student.edu<br>
-        Password: Test1234
-    </div>
-
-    <form id="demoForm">
-
-        <input 
-            type="text" 
-            id="email"
-            placeholder="Email Address" 
-            required
-        >
-
-        <input 
-            type="password" 
-            id="password"
-            placeholder="Password" 
-            required
-        >
-
-        <button type="submit">
-            Verify Account
-        </button>
-
-    </form>
-
-    <div class="tips">
-
-        <strong>How to detect phishing:</strong>
-
-        <ul>
-            <li>Check suspicious URLs</li>
-            <li>Watch for urgency tactics</li>
-            <li>Verify sender identity</li>
-            <li>Never enter passwords on unknown pages</li>
-        </ul>
-
-    </div>
-
-    <div class="footer">
-        This page does NOT collect or transmit credentials.<br>
-        Built strictly for cybersecurity awareness training and education.
-    </div>
-
+<!-- EDU BANNER -->
+<div id="edu-banner">
+  🎓 CYBERSECURITY CLASS DEMO &nbsp;<span>Simulated phishing page — no data is transmitted</span>
+  <button id="flag-btn" onclick="toggleFlags()">🚩 Show Red Flags</button>
 </div>
 
+<div class="page">
+
+  <!-- LEFT HERO -->
+  <div class="hero">
+    <div class="hero-photo"></div>
+    <div class="hero-bg"></div>
+    <div class="hero-circle"></div>
+    <div class="hero-content">
+      <div class="hero-brand">Template</div>
+      <div class="hero-title">
+        Improve your skills<br>
+        <strong>with eLearning</strong>
+      </div>
+    </div>
+  </div>
+
+  <!-- RIGHT LOGIN -->
+  <div class="login-panel">
+    <div class="card">
+
+      <!-- FAKE URL BAR -->
+      <div class="url-bar" id="url-bar">
+        <span class="lock">🔒</span>
+        <span class="u-domain">elearning-portal-login.studentaccess.net</span><span class="u-path">/login</span>
+        <div class="url-flag" id="url-flag">
+          <strong>⚠️ Suspicious URL:</strong>
+          <ul>
+            <li>Attacker owns <em>studentaccess.net</em></li>
+            <li>Real site would be <em>youruniversity.edu</em></li>
+            <li>Padlock ≠ safe — just means encrypted to attacker</li>
+            <li>Long subdomain hides the real domain</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- LOGIN FORM -->
+      <div id="login-form">
+        <h2>Log in to your account</h2>
+
+        <div class="input-wrap" id="wrap-email">
+          <span class="ico">👤</span>
+          <input type="email" id="email" placeholder="Your e-mail" autocomplete="off"/>
+        </div>
+
+        <div class="input-wrap" id="wrap-pass">
+          <span class="ico">🔑</span>
+          <input type="password" id="password" placeholder="Password" autocomplete="off"/>
+        </div>
+
+        <div class="row-links">
+          <div style="display:flex;gap:14px;">
+            <a href="#" onclick="return false;">Register</a>
+            <a href="#" onclick="return false;">Forgot Password?</a>
+          </div>
+          <button class="btn-signin" onclick="submitForm()">Sign In</button>
+        </div>
+
+        <div class="social-row">
+          <span>Login with</span>
+          <span class="sep">|</span>
+          <a href="#" onclick="return false;">facebook</a>
+          <a href="#" onclick="return false;">google</a>
+        </div>
+
+        <!-- ANNOTATIONS -->
+        <div id="annotations">
+          <h3>🚩 Red Flags — Educator Notes</h3>
+          <ol>
+            <li><strong>Fake domain:</strong> URL is <em>studentaccess.net</em>, not a real university domain.</li>
+            <li><strong>Padlock is misleading:</strong> HTTPS only means the connection is encrypted — it doesn't mean the site is legitimate.</li>
+            <li><strong>Credential harvesting:</strong> Whatever you type is captured — in a real attack it's sent to the attacker silently.</li>
+            <li><strong>Social login buttons:</strong> "Login with Facebook/Google" are fake — used to steal OAuth tokens too.</li>
+            <li><strong>Professional design:</strong> Attackers clone real sites pixel-perfectly to avoid suspicion.</li>
+            <li><strong>Redirect after login:</strong> Victim is sent to the real site — they think they just mistyped their password.</li>
+          </ol>
+        </div>
+      </div>
+
+      <!-- CAPTURED SCREEN -->
+      <div id="captured">
+        <div class="trap">🪤</div>
+        <h2>Credentials Captured!</h2>
+        <p>In a real attack, this was silently sent to the attacker's server. You'd now be redirected to the real site — most victims never notice.</p>
+        <div class="cred-box">
+          <div class="lbl">Email / Username</div>
+          <div class="val" id="show-email">—</div>
+        </div>
+        <div class="cred-box">
+          <div class="lbl">Password</div>
+          <div class="val" id="show-pass">—</div>
+        </div>
+        <button class="btn-reset" onclick="resetDemo()">↺ Reset Demo</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<footer>⚠️ Educational Simulation Only · DICT 218 Cybersecurity · No data is stored or transmitted</footer>
+
 <script>
+  let flagsOn = false;
 
-document.getElementById("demoForm").addEventListener("submit", function(event){
+  function toggleFlags() {
+    flagsOn = !flagsOn;
+    const btn = document.getElementById('flag-btn');
+    const ann = document.getElementById('annotations');
+    const urlFlag = document.getElementById('url-flag');
+    const wrapEmail = document.getElementById('wrap-email');
+    const wrapPass = document.getElementById('wrap-pass');
 
-    event.preventDefault();
-
-    const email = document.getElementById("email").value;
-    const password = document.getElementById("password").value;
-
-    if(email === "demo@student.edu" && password === "Test1234"){
-
-        alert(
-            "Demo login successful.\n\n" +
-            "This is a cybersecurity awareness simulation.\n\n" +
-            "Real phishing websites attempt to steal user credentials using fake login pages and psychological pressure."
-        );
-
+    if (flagsOn) {
+      btn.textContent = '✅ Hide Red Flags';
+      ann.style.display = 'block';
+      urlFlag.style.display = 'block';
+      wrapEmail.classList.add('flagged');
+      wrapPass.classList.add('flagged');
     } else {
-
-        alert(
-            "Incorrect demo credentials.\n\n" +
-            "Use:\n" +
-            "Email: demo@student.edu\n" +
-            "Password: Test1234"
-        );
-
+      btn.textContent = '🚩 Show Red Flags';
+      ann.style.display = 'none';
+      urlFlag.style.display = 'none';
+      wrapEmail.classList.remove('flagged');
+      wrapPass.classList.remove('flagged');
     }
+  }
 
-});
+  function submitForm() {
+    const email = document.getElementById('email').value.trim();
+    const pass  = document.getElementById('password').value;
+    if (!email || !pass) { alert('Please enter your email and password.'); return; }
+    document.getElementById('show-email').textContent = email;
+    document.getElementById('show-pass').textContent  = pass;
+    document.getElementById('login-form').style.display = 'none';
+    document.getElementById('captured').style.display   = 'block';
+  }
 
+  function resetDemo() {
+    document.getElementById('email').value    = '';
+    document.getElementById('password').value = '';
+    document.getElementById('login-form').style.display = 'block';
+    document.getElementById('captured').style.display   = 'none';
+  }
 </script>
-
 </body>
 </html>
